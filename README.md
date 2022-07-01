@@ -4,7 +4,7 @@ IPv6/IPv4 LLMNR/NBT-NS/mDNS Poisoner and NTLMv1/2 Relay.
 
 Author: Laurent Gaffie <laurent.gaffie@gmail.com >  https://g-laurent.blogspot.com
 
-Modified by PapaHack to add option to change the default SMB port using '-p or --smbport' on the command line. Useful in some situations when performing advanced MitM attacks using ARP spoofing instead of Responder's built in poisoning methods. Use with the -A option.
+Modified by Trevor O'Donnal (PapaHack) <todonnal@yahoo.com> to add option to change the default SMB port using '-p or --smbport' on the command line. Useful in some situations when performing advanced MitM attacks using ARP spoofing instead of Responder's built in poisoning methods. Use with the -A option.
 
 ## Intro ##
 
