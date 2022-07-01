@@ -41,6 +41,7 @@ parser.add_option('-F','--ForceWpadAuth',  action="store_true", help="Force NTLM
 
 parser.add_option('-P','--ProxyAuth',       action="store_true", help="Force NTLM (transparently)/Basic (prompt) authentication for the proxy. WPAD doesn't need to be ON. This option is highly effective. Default: False", dest="ProxyAuth_On_Off", default=False)
 
+parser.add_option('-p','--smbport',	action="store",	type="int",	help="Modify the SMB listener port. (i.e. - Instead of port 445, use port 4445) Useful in some advanced MitM scenarios.", dest="smbport", default=445)
 parser.add_option('--lm',                  action="store_true", help="Force LM hashing downgrade for Windows XP/2003 and earlier. Default: False", dest="LM_On_Off", default=False)
 parser.add_option('--disable-ess',         action="store_true", help="Force ESS downgrade. Default: False", dest="NOESS_On_Off", default=False)
 parser.add_option('-v','--verbose',        action="store_true", help="Increase verbosity.", dest="Verbose")
@@ -318,11 +319,11 @@ def main():
 		if settings.Config.SMB_On_Off:
 			if settings.Config.LM_On_Off:
 				from servers.SMB import SMB1LM
-				threads.append(Thread(target=serve_thread_tcp, args=(settings.Config.Bind_To, 445, SMB1LM,)))
+				threads.append(Thread(target=serve_thread_tcp, args=(settings.Config.Bind_To, options.smbport, SMB1LM,)))
 				threads.append(Thread(target=serve_thread_tcp, args=(settings.Config.Bind_To, 139, SMB1LM,)))
 			else:
 				from servers.SMB import SMB1
-				threads.append(Thread(target=serve_thread_tcp, args=(settings.Config.Bind_To, 445, SMB1,)))
+				threads.append(Thread(target=serve_thread_tcp, args=(settings.Config.Bind_To, options.smbport, SMB1,)))
 				threads.append(Thread(target=serve_thread_tcp, args=(settings.Config.Bind_To, 139, SMB1,)))
 
 		if settings.Config.Krb_On_Off:
